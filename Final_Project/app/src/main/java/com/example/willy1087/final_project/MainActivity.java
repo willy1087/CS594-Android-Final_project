@@ -58,6 +58,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
             return true;
         }
 
+        if(id== R.id.weekly){
+            //go to weekly layout
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
