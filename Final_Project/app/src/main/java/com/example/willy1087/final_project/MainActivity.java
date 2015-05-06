@@ -27,12 +27,12 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
 
         actionBar.addTab(
                 actionBar.newTab()
-                        .setText("First List")
+                        .setText("Input")
                         .setTabListener(this));
 
         actionBar.addTab(
                 actionBar.newTab()
-                        .setText("Second List")
+                        .setText("Budget")
                         .setTabListener(this));
 
     }
