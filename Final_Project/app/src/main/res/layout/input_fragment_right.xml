@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +9,46 @@
     tools:context=".MainActivity$PlaceholderFragment"
     android:background="@color/background">
 
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtBudget"
+            android:text="Budget: $"
+            android:textSize="20dp"
+            android:padding="5dp" />
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberDecimal"
+            android:hint="0.00"
+            android:textColor="@color/text_color"
+            android:ems="10"
+            android:id="@+id/budget"
+            android:layout_toRightOf="@id/txtBudget"/>
+    </TableRow>
 
-</RelativeLayout>
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtSalary"
+            android:text="Salary: $"
+            android:layout_below="@id/budget"
+            android:textSize="20dp"
+            android:padding="5dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberDecimal"
+            android:hint="0.00"
+            android:textColor="@color/text_color"
+            android:ems="10"
+            android:id="@+id/salary"
+            android:layout_below="@id/budget"
+            android:layout_toRightOf="@id/txtSalary" />
+    </TableRow>
+
+</TableLayout>

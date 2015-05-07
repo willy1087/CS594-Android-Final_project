@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction FragTrans) {
         firstList = new Input_Fragment_left();
-        //secondList = new DemoFragment2();
+        secondList = new Input_Fragment_right();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         if(tab.getPosition()==0) {
@@ -77,11 +77,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
             firstList.setRetainInstance(true);
             ft.commit();
         }
-//        }else{
-//            ft.replace(R.id.container, secondList);
-//            secondList.setRetainInstance(true);
-//            ft.commit();
-//        }
+        else{
+            ft.replace(R.id.container, secondList);
+            secondList.setRetainInstance(true);
+            ft.commit();
+        }
     }
 
     @Override
