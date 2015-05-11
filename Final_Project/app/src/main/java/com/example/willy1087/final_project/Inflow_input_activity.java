@@ -4,14 +4,14 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-@SuppressWarnings("deprications")
-public class MainActivity extends Activity implements ActionBar.TabListener{
+/**
+ * Created by williamsalinas on 5/11/15.
+ */
+public class Inflow_input_activity extends Activity implements ActionBar.TabListener{
 
     ActionBar.Tab firstL, secondL;
     Fragment firstList;
@@ -20,19 +20,19 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.inflow_input_activity);
 
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         actionBar.addTab(
                 actionBar.newTab()
-                        .setText("Input")
+                        .setText("Search")
                         .setTabListener(this));
 
         actionBar.addTab(
                 actionBar.newTab()
-                        .setText("Budget")
+                        .setText("Add")
                         .setTabListener(this));
 
     }
@@ -54,12 +54,27 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        if(id== R.id.dashboard){
+
+            //goes to dashboard activity
             return true;
         }
 
-        if(id== R.id.weekly){
-            //go to weekly layout
+        if(id == R.id.inflow){
+
+            //stays here since this is inflow
+            return true;
+
+        }
+
+        if(id == R.id.outflow){
+
+            //goes to outflow activity
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -67,21 +82,21 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction FragTrans) {
-        firstList = new Input_Fragment_left();
-        //secondList = new DemoFragment2();
+        firstList = new Inflow_input_fragment_left();
+        secondList = new Inflow_input_fragment_right();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         if(tab.getPosition()==0) {
 
-            ft.replace(R.id.container, firstList);
+            ft.replace(R.id.inflow_container, firstList);
             firstList.setRetainInstance(true);
             ft.commit();
+
+        }else{
+            ft.replace(R.id.inflow_container, secondList);
+            secondList.setRetainInstance(true);
+            ft.commit();
         }
-//        }else{
-//            ft.replace(R.id.container, secondList);
-//            secondList.setRetainInstance(true);
-//            ft.commit();
-//        }
     }
 
     @Override

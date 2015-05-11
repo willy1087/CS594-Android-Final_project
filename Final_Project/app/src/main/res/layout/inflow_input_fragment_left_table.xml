@@ -1,0 +1,118 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:shrinkColumns="*"
+    android:stretchColumns="*" >
+
+
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/TextView21"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Type"
+            android:background="@drawable/border"
+            android:textColor="@color/text_color">
+        </TextView>
+
+        <TextView
+            android:id="@+id/TextView22"
+            android:gravity="center"
+            android:text="Amount"
+            android:textStyle="bold"
+            android:background="@drawable/border"
+
+            android:textColor="@color/text_color">
+        </TextView>
+
+        <TextView
+            android:id="@+id/TextView23"
+            android:gravity="center"
+            android:text="Date"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:background="@drawable/border"
+
+            android:textColor="@color/text_color">
+        </TextView>
+
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView31"
+            android:text="Check"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:background="@drawable/border"
+
+            android:textColor="@color/text_color">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView32"
+            android:gravity="center_horizontal"
+            android:text="$10.00"
+            android:background="@drawable/border"
+            android:textColor="@color/text_color">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView33"
+            android:gravity="center_horizontal"
+            android:text="9/15/2015"
+            android:background="@drawable/border"
+            android:textColor="@color/text_color">
+        </TextView>
+
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView41"
+            android:text="Cash"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:background="@drawable/border"
+            android:textColor="@color/text_color">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView42"
+            android:gravity="center_horizontal"
+            android:text="$50.00"
+            android:background="@drawable/border"
+            android:textColor="@color/text_color">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView43"
+            android:gravity="center_horizontal"
+            android:text="10/9/2015"
+            android:background="@drawable/border"
+            android:textColor="@color/text_color">
+        </TextView>
+
+
+
+    </TableRow>
+
+</TableLayout>
