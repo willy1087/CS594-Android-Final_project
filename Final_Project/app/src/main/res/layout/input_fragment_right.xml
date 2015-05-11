@@ -1,0 +1,58 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$PlaceholderFragment"
+    android:background="@color/background">
+
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtBudget"
+            android:text="Budget: $"
+            android:textSize="20dp"
+            android:padding="5dp"
+            android:textColor="#1e90ff" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberDecimal"
+            android:hint="0.00"
+            android:textColor="@color/text_color"
+            android:ems="10"
+            android:id="@+id/budget"
+            android:layout_toRightOf="@id/txtBudget"
+            android:padding="5dp" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtSalary"
+            android:text="Salary: $"
+            android:layout_below="@id/budget"
+            android:textSize="20dp"
+            android:padding="5dp"
+            android:textColor="#1e90ff" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberDecimal"
+            android:hint="0.00"
+            android:textColor="@color/text_color"
+            android:ems="10"
+            android:id="@+id/salary"
+            android:layout_below="@id/budget"
+            android:layout_toRightOf="@id/txtSalary"
+            android:padding="5dp" />
+    </TableRow>
+
+</TableLayout>
