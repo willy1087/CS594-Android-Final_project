@@ -2,5 +2,8 @@
 
     <color name="background">#FFFFFF</color>
     <color name="button">#778899</color>
+    <color name="submit_button">#5CB85C</color>
+    <color name="clear_button">#C9302C</color>
     <color name="text_color">#000000</color>
+    <color name="input_text_color">#37AECA</color>
 </resources>

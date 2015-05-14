@@ -1,6 +1,10 @@
 package com.example.willy1087.final_project;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +12,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 @SuppressWarnings("deprications")
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements ActionBar.TabListener{
 
+    ActionBar.Tab firstL, secondL;
+    Fragment firstList;
+    Fragment secondList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        actionBar.addTab(
+                actionBar.newTab()
+                        .setText("Input")
+                        .setTabListener(this));
+
+        actionBar.addTab(
+                actionBar.newTab()
+                        .setText("Budget")
+                        .setTabListener(this));
 
     }
 
@@ -35,33 +55,55 @@ public class MainActivity extends Activity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.weekly_menu_button) {
 
-        if(id== R.id.dashboard){
+            //goes to weekly activity
 
-            //remains there since dashboard is where you start
+            return true;
+        }else if (id == R.id.monthly_menu_button){
+
+            //goes to monthly activity
+
+            return true;
+        }else if (id == R.id.search_menu_button){
+
+            //goes to search activity
+
             return true;
         }
 
-        if(id == R.id.inflow){
 
-            //goes to inflow activity
-            Intent intent = new Intent(MainActivity.this,Inflow_input_activity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            return true;
-        }
-
-        if(id == R.id.outflow){
-
-            //goes to outflow activity
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction FragTrans) {
+        firstList = new Input_Fragment_left();
+        //secondList = new DemoFragment2();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        if(tab.getPosition()==0) {
+
+            ft.replace(R.id.container, firstList);
+            firstList.setRetainInstance(true);
+            ft.commit();
+        }
+//        }else{
+//            ft.replace(R.id.container, secondList);
+//            secondList.setRetainInstance(true);
+//            ft.commit();
+//        }
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+    }
 
 }
