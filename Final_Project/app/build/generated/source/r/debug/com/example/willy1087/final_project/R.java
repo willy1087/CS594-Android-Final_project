@@ -1535,9 +1535,10 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f0a0026;
         public static final int alertTitle=0x7f0a0030;
         public static final int always=0x7f0a0016;
-        public static final int amount=0x7f0a0051;
-        public static final int amount_row=0x7f0a0050;
+        public static final int amount=0x7f0a0052;
+        public static final int amount_row=0x7f0a0051;
         public static final int beginning=0x7f0a0013;
+        public static final int budget_holder=0x7f0a0050;
         public static final int buttonPanel=0x7f0a0036;
         public static final int checkbox=0x7f0a0038;
         public static final int clear=0x7f0a0055;
@@ -1598,12 +1599,11 @@ containing a value of this type.
         public static final int submit=0x7f0a0054;
         public static final int submit_area=0x7f0a004b;
         public static final int tabMode=0x7f0a000b;
-        public static final int test=0x7f0a0053;
         public static final int textSpacerNoButtons=0x7f0a0033;
         public static final int title=0x7f0a002c;
         public static final int title_template=0x7f0a002f;
         public static final int topPanel=0x7f0a002e;
-        public static final int type=0x7f0a0052;
+        public static final int type=0x7f0a0053;
         public static final int up=0x7f0a0008;
         public static final int useLogo=0x7f0a0012;
         public static final int weekly_menu_button=0x7f0a0058;
@@ -1683,14 +1683,15 @@ containing a value of this type.
         public static final int amount=0x7f0c0012;
         public static final int amount_hint=0x7f0c0013;
         public static final int app_name=0x7f0c0014;
-        public static final int clear=0x7f0c0015;
-        public static final int hello_world=0x7f0c0016;
-        public static final int monthly_menu_button=0x7f0c0017;
-        public static final int report_menu_button=0x7f0c0018;
-        public static final int search_menu_button=0x7f0c0019;
-        public static final int submit=0x7f0c001a;
-        public static final int type=0x7f0c001b;
-        public static final int weekly_menu_button=0x7f0c001c;
+        public static final int budget_text_view=0x7f0c0015;
+        public static final int clear=0x7f0c0016;
+        public static final int hello_world=0x7f0c0017;
+        public static final int monthly_menu_button=0x7f0c0018;
+        public static final int report_menu_button=0x7f0c0019;
+        public static final int search_menu_button=0x7f0c001a;
+        public static final int submit=0x7f0c001b;
+        public static final int type=0x7f0c001c;
+        public static final int weekly_menu_button=0x7f0c001d;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f0d0000;

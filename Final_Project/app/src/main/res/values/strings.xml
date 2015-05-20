@@ -7,6 +7,7 @@
     <string name="report_menu_button">Report</string>
     <string name="weekly_menu_button">weekly</string>
     <string name="monthly_menu_button">monthly</string>
+    <string name="budget_text_view">Budget: $230</string>
 
     <string name="amount">Amount : $</string>
     <string name="type">Type :</string>
