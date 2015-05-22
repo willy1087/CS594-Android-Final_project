@@ -22,4 +22,29 @@
         <item>Type 3</item>
     </string-array>
 
+    <string name="search">Search</string>
+
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="startDate_hint">05/04/2015</string>
+    <string name="endDate_hint">05/10/2015</string>
+
+    <string name="daysTypes">Types/Date</string>
+    <string name="day1">4th</string>
+    <string name="day2">5th</string>
+    <string name="day3">6th</string>
+    <string name="day4">7th</string>
+    <string name="day5">8th</string>
+    <string name="day6">9th</string>
+    <string name="day7">1oth</string>
+
+    <string name="type1">Type 1</string>
+    <string name="type2">Type 2</string>
+    <string name="type3">Type 3</string>
+
+    <string name="table">Table</string>
+    <string name="graph">Graph</string>
+
+
+
 </resources>

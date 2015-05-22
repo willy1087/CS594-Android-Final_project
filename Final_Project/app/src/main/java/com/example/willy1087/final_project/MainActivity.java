@@ -57,8 +57,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
         //noinspection SimplifiableIfStatement
         if (id == R.id.weekly_menu_button) {
 
-            //goes to weekly activity
 
+            Intent intent = new Intent(this,weekly_activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
             return true;
         }else if (id == R.id.monthly_menu_button){
 
