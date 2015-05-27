@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="MergeRootFrame"
+
+    android:id="@+id/container"
+    android:background="@color/background"
+
+    >
+
+    <ImageView
+        android:id="@+id/imageViewSplashLogo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#ffffff"
+        android:src="@drawable/die_face_1" />
+
+    </FrameLayout>
+<!-- From: file:/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/src/main/res/layout/activity_main.xml -->
