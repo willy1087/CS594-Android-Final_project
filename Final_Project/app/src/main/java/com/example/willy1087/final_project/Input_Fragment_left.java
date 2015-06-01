@@ -66,7 +66,7 @@ public class Input_Fragment_left extends Fragment {
 
             try {
                 JSONObject check = new JSONObject(budget);
-                double d = check.getDouble("budget");
+                double d = check.getDouble("balance");
                 value = (""+d);
 
             }catch (JSONException e){
@@ -133,7 +133,6 @@ public class Input_Fragment_left extends Fragment {
                 File dir = getActivity().getFilesDir();
                 File file = new File(dir,"input.json");
                 double holder;
-
                 if(file.exists()){
 
 
@@ -165,32 +164,32 @@ public class Input_Fragment_left extends Fragment {
                     //test budget file
                     //create budget file
 
-                    JSONObject budget = new JSONObject();
-                    try {
-
-                        budget.put("budget",230);
-                        budget.put("salary",2760);
-
-                    }catch(JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    String test_budget = budget.toString();
-
-                    //display test_budget on toast
-                    Toast.makeText(getActivity(),test_budget, Toast.LENGTH_LONG).show();
-
-                    //write to internal memory
-                    try {
-                        FileOutputStream outputStream=getActivity().openFileOutput("budget.json", Context.MODE_PRIVATE);
-                        outputStream.write(test_budget.getBytes());
-                        outputStream.close();
-                    }catch (FileNotFoundException e){
-                        e.printStackTrace();
-                    }
-                    catch(Exception e){
-                        e.printStackTrace();
-                    }
+//                    JSONObject budget = new JSONObject();
+//                    try {
+//
+//                        budget.put("budget",230);
+//                        budget.put("salary",2760);
+//
+//                    }catch(JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    String test_budget = budget.toString();
+//
+//                    //display test_budget on toast
+//                    Toast.makeText(getActivity(),test_budget, Toast.LENGTH_LONG).show();
+//
+//                    //write to internal memory
+//                    try {
+//                        FileOutputStream outputStream=getActivity().openFileOutput("budget.json", Context.MODE_PRIVATE);
+//                        outputStream.write(test_budget.getBytes());
+//                        outputStream.close();
+//                    }catch (FileNotFoundException e){
+//                        e.printStackTrace();
+//                    }
+//                    catch(Exception e){
+//                        e.printStackTrace();
+//                    }
 
 
 
@@ -337,7 +336,7 @@ public class Input_Fragment_left extends Fragment {
 
 
         //get current date
-        DateFormat df = new SimpleDateFormat("MM-dd-yy");
+        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         Date dateobj = new Date();
         df.format(dateobj);
 

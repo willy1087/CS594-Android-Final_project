@@ -17,7 +17,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.willy1087.final_project.weekly_activity"
+            android:name="com.example.willy1087.final_project.Weekly"
             android:label="@string/app_name" >
         </activity>
         <activity

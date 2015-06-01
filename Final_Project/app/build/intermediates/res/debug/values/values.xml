@@ -235,7 +235,9 @@
     <string name="amount">Amount : $</string>
     <string name="amount_hint">0.00</string>
     <string name="app_name">Le Finance App</string>
-    <string name="budget_text_view">Budget: $</string>
+    <string name="balance_text_view">Balance: $230</string>
+    <string name="budget">Budget : $</string>
+    <string name="budget_text_view">Balance: $</string>
     <string name="clear">Clear</string>
     <string name="day1">4th</string>
     <string name="day2">5th</string>
@@ -253,12 +255,15 @@
     <string name="input">Input</string>
     <string name="monthly_menu_button">monthly</string>
     <string name="report_menu_button">Report</string>
+    <string name="salary">Salary : $</string>
     <string name="search">Search</string>
     <string name="search_menu_button">Search</string>
     <string name="startDate">Start Date</string>
     <string name="startDate_hint">05/04/2015</string>
     <string name="submit">Submit</string>
     <string name="table">Table</string>
+    <string name="title_activity_result_activity">result_activity</string>
+    <string name="title_activity_search_activity">search_activity</string>
     <string name="type">Type :</string>
     <string name="type1">Type 1</string>
     <string name="type2">Type 2</string>

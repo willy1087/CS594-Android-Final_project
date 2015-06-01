@@ -13,10 +13,13 @@
             >
 
         </activity>
-        <activity android:name=".weekly_activity"
-                android:label="@string/app_name"
-            >
+
+        <activity
+            android:name=".Weekly"
+            android:label="@string/app_name" >
+
         </activity>
+
         <activity android:name=".SplashScreen"
             android:label="@string/app_name"
             >

@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
         else if (id == R.id.weekly_menu_button) {
 
 
-            Intent intent = new Intent(MainActivity.this,weekly_activity.class);
+            Intent intent = new Intent(MainActivity.this,Weekly.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
             //return true;
@@ -99,6 +99,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction FragTrans) {
         firstList = new Input_Fragment_left();
+        secondList = new Input_Fragment_right();
         //secondList = new DemoFragment2();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
@@ -108,11 +109,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
             firstList.setRetainInstance(true);
             ft.commit();
         }
-//        }else{
-//            ft.replace(R.id.container, secondList);
-//            secondList.setRetainInstance(true);
-//            ft.commit();
-//        }
+       else{
+            ft.replace(R.id.container, secondList);
+            secondList.setRetainInstance(true);
+            ft.commit();
+        }
     }
 
     @Override
