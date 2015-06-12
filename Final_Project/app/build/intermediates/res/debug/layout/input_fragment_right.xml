@@ -1,0 +1,121 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$PlaceholderFragment"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/balance_holder"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:id="@+id/balance_view"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/budget_row"
+        android:layout_below="@+id/balance_holder"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/budget"
+            android:textColor="@color/input_text_color"
+            android:textSize="25sp"
+            android:layout_weight="0.5"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberDecimal"
+            android:textColor="@color/text_color"
+            android:id="@+id/budget"
+            android:hint="@string/amount_hint"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/salary_row"
+        android:layout_below="@+id/budget_row"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/salary"
+            android:textColor="@color/input_text_color"
+            android:textSize="25sp"
+            android:layout_weight="0.5"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberDecimal"
+            android:textColor="@color/text_color"
+            android:id="@+id/salary"
+            android:hint="@string/amount_hint"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.90"
+            android:text="@string/submit"
+            android:id="@+id/submit"
+            android:background="@color/submit_button"
+            android:layout_marginEnd="5dp"
+            style="?android:attr/borderlessButtonStyle"
+
+            />
+
+        <Button
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.90"
+            android:text="@string/clear"
+            android:id="@+id/clear"
+            android:background="@color/clear_button"
+            android:layout_marginStart="5dp"
+            style="?android:attr/borderlessButtonStyle"
+            />
+
+    </LinearLayout>
+</RelativeLayout>
+<!-- From: file:/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/src/main/res/layout/input_fragment_right.xml -->

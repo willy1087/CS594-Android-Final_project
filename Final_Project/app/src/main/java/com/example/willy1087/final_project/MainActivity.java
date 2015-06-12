@@ -16,6 +16,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.io.File;
+
 
 @SuppressWarnings("deprications")
 public class MainActivity extends Activity implements ActionBar.TabListener{
@@ -87,8 +89,32 @@ public class MainActivity extends Activity implements ActionBar.TabListener{
         }else if (id == R.id.search_menu_button){
 
             //goes to search activity
+            Intent intent = new Intent(MainActivity.this,search_activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+        }else if (id== R.id.delete_everything){
 
-            return true;
+            //delete all the files and go back to main fragment
+            File dir = getFilesDir();
+            File file = new File(dir,"input.json");
+            boolean deleted = file.delete();
+            System.out.println("was the file deleted: "+ deleted);
+
+            File dir1 = getFilesDir();
+            File file1 = new File(dir1,"budget.json");
+            boolean deleted1 = file1.delete();
+            System.out.println("was the file deleted: "+ deleted1);
+
+            File dir2 = getFilesDir();
+            File file2 = new File(dir2,"result.json");
+            boolean deleted2 = file2.delete();
+            System.out.println("was the file deleted: "+ deleted2);
+
+
+            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+
         }
 
 

@@ -31,9 +31,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 
 public class Input_Fragment_left extends Fragment {
@@ -51,6 +54,12 @@ public class Input_Fragment_left extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.input_fragment_left, container, false);
 
+        //checking monthly values
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+        final int currentMonth = localCalendar.get(Calendar.MONTH) + 1;
+        final int currentYear = localCalendar.get(Calendar.YEAR);
+
+
 
         the_budget = (TextView)view.findViewById(R.id.budget_value);
 
@@ -59,6 +68,7 @@ public class Input_Fragment_left extends Fragment {
         File file4 = new File(dir4,"budget.json");
 
         String value = "";
+        double d = 0.0;
         if(file4.exists()){
 
             String budget = ReadJSONFile(file4.getName());
@@ -66,12 +76,96 @@ public class Input_Fragment_left extends Fragment {
 
             try {
                 JSONObject check = new JSONObject(budget);
-                double d = check.getDouble("balance");
-                value = (""+d);
+                d = check.getDouble("budget");
+                //value = (""+d);
 
             }catch (JSONException e){
                 e.printStackTrace();
             }
+
+            //need to get the total amount for the month to get the balance
+            File dir = getActivity().getFilesDir();
+            File file = new File(dir, "input.json");
+
+            double store_amount = 0;
+
+            if (file.exists()) {
+
+
+                String JSON_String = ReadJSONFile(file.getName());
+
+
+                try {
+                    JSONObject check = new JSONObject(JSON_String);
+                    JSONArray JSON_array = check.getJSONArray("input");
+
+                    for (int i = 0; i < JSON_array.length(); i++) {
+                        JSONObject row = JSON_array.getJSONObject(i);
+
+                        //checking what to add
+                        //will be using current month
+                        String x = row.optString("date");
+                        //splitting the date into 3 fields but only use 2 (month and year)
+                        String [] fields = x.split("-");
+
+                        int json_year = Integer.parseInt(fields[2]);
+                        int json_month = Integer.parseInt(fields[0]);
+
+                        if(json_year == currentYear && json_month == currentMonth){
+                            store_amount += row.getDouble("amount");
+                        }
+
+                        //write balance (store_amount) to budget file
+                        File bud_dir = getActivity().getFilesDir();
+                        File bud_file = new File(bud_dir, "budget.json");
+
+                        //if file exits write to it
+                        if(bud_file.exists()){
+
+                            String file_string = ReadJSONFile(bud_file.getName());
+
+                            try{
+                                JSONObject jObj = new JSONObject(file_string);
+
+                                jObj.put("balance",d-store_amount);
+
+                                //write to budget file
+                                try {
+                                    FileOutputStream outputStream=getActivity().openFileOutput("budget.json", Context.MODE_PRIVATE);
+                                    outputStream.write(jObj.toString().getBytes());
+                                    outputStream.close();
+                                }catch (FileNotFoundException e){
+                                    e.printStackTrace();
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                        //end of write balance
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //check this future value
+
+                System.out.println("The total amount from the JSON file without the new value added " + store_amount);
+
+            }else{
+                store_amount = 0;
+            }
+
+            double balance = d - store_amount;
+            value = (""+balance);
+
+
 
         }else{
             value = "0";
@@ -99,10 +193,21 @@ public class Input_Fragment_left extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.report_values, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
+
+
+
+        System.out.println("This is the current month " + currentMonth + " and Current Year"+ currentYear );
+
+        //checking monthly values
+
+
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
 
                 //store the selected item to string the choice
                 the_choice = spinner.getSelectedItem().toString();
@@ -120,149 +225,135 @@ public class Input_Fragment_left extends Fragment {
             public void onClick(View v) {
 
                 //get the value to double the amount
-                if(amount.getText().toString().isEmpty()){
-                    the_amount = 0;
-                }else {
-                    the_amount = Double.parseDouble(amount.getText().toString());
-                }
+                if(!zero_check(amount.getText().toString())){
+                //if(amount.getText().toString().equals("0") || amount.getText().toString().isEmpty()){
+                    //the_amount = 0;
 
+                    //invalid input try again
 
-                //need to get all the amount values form json file and
-                //add them to see if the amount exceed the budget
-
-                File dir = getActivity().getFilesDir();
-                File file = new File(dir,"input.json");
-                double holder;
-                if(file.exists()){
-
-
-                    String JSON_String = ReadJSONFile(file.getName());
-
-                    double store_amount = 0;
-                    try {
-                        JSONObject check = new JSONObject(JSON_String);
-                        JSONArray JSON_array = check.getJSONArray("input");
-
-                        for(int i = 0; i< JSON_array.length(); i++){
-                            JSONObject row = JSON_array.getJSONObject(i);
-                            store_amount += row.getDouble("amount");
-                        }
-
-
-                    }catch (JSONException e){
-                        e.printStackTrace();
-                    }
-
-                    //check this future value
-                    holder = store_amount + the_amount;
-
-                    System.out.println("The total amount from the JSON file without the new value added " + store_amount);
-
-                }else{
-                    holder = the_amount;
-
-                    //test budget file
-                    //create budget file
-
-//                    JSONObject budget = new JSONObject();
-//                    try {
-//
-//                        budget.put("budget",230);
-//                        budget.put("salary",2760);
-//
-//                    }catch(JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    String test_budget = budget.toString();
-//
-//                    //display test_budget on toast
-//                    Toast.makeText(getActivity(),test_budget, Toast.LENGTH_LONG).show();
-//
-//                    //write to internal memory
-//                    try {
-//                        FileOutputStream outputStream=getActivity().openFileOutput("budget.json", Context.MODE_PRIVATE);
-//                        outputStream.write(test_budget.getBytes());
-//                        outputStream.close();
-//                    }catch (FileNotFoundException e){
-//                        e.printStackTrace();
-//                    }
-//                    catch(Exception e){
-//                        e.printStackTrace();
-//                    }
-
-
-
-                }
-
-                //read from the budget.json file to assign budget
-
-                File dir3 = getActivity().getFilesDir();
-                File file3 = new File(dir3,"budget.json");
-
-                double budget  = 0;
-                if(file3.exists()){
-                    //get the object from budget
-                    //read object
-                    String budget_st = ReadJSONFile(file3.getName());
-
-
-                    try {
-                        JSONObject check = new JSONObject(budget_st);
-                        budget = check.getDouble("budget");
-
-                        System.out.println("The budget from the file is " + budget);
-
-                    }catch (JSONException e){
-                        e.printStackTrace();
-                    }
-
-
-                }else {
-
-                    //for testing purposes
-                    budget = 230;
-                }
-                if(holder > budget) {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("Warning");
-                    alertDialog.setMessage("You are about to exceed your budget!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                    alertDialog.setMessage("Invalid Input!");
+
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                }
-                            });
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Update Budget",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-
-                                    //go to budget fragment
-
                                 }
                             });
                     alertDialog.show();
 
-                }else{
-                    //create JSON file
-                    create_JSON(the_amount, the_choice);
 
-                       //testing this later don't bother with the commented part
-//                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
-//
-//                    try{
-//                        Thread.sleep(2000);
-//                    }catch (InterruptedException e){
-//                        e.printStackTrace();
-//                    }
+                }else {
+                    the_amount = Double.parseDouble(amount.getText().toString());
+//                }
 
 
-                    //refresh to start a new fragment
-                    Intent intent = new Intent(getActivity(),MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
+                    //need to get all the amount values form json file and
+                    //add them to see if the amount exceed the budget
 
+                    File dir = getActivity().getFilesDir();
+                    File file = new File(dir, "input.json");
+                    double holder;
+                    if (file.exists()) {
+
+
+                        String JSON_String = ReadJSONFile(file.getName());
+
+                        double store_amount = 0;
+                        try {
+                            JSONObject check = new JSONObject(JSON_String);
+                            JSONArray JSON_array = check.getJSONArray("input");
+
+                            for (int i = 0; i < JSON_array.length(); i++) {
+                                JSONObject row = JSON_array.getJSONObject(i);
+
+                                //checking what to add
+                                //will be using current month
+                                String x = row.optString("date");
+                                //splitting the date into 3 fields but only use 2 (month and year)
+                                String [] fields = x.split("-");
+
+                                int json_year = Integer.parseInt(fields[2]);
+                                int json_month = Integer.parseInt(fields[0]);
+
+                                if(json_year == currentYear && json_month == currentMonth){
+                                    store_amount += row.getDouble("amount");
+                                }
+
+                                //System.out.println("The date as a string is " + x);
+
+
+                                //store_amount += row.getDouble("amount");
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        //check this future value
+                        holder = store_amount + the_amount;
+
+                        System.out.println("The total amount from the JSON file without the new value added " + store_amount);
+
+                    } else {
+                        holder = the_amount;
+
+                    }
+
+                    //read from the budget.json file to assign budget
+
+                    File dir3 = getActivity().getFilesDir();
+                    File file3 = new File(dir3, "budget.json");
+
+                    double budget = 0;
+                    if (file3.exists()) {
+                        //get the object from budget
+                        //read object
+                        String budget_st = ReadJSONFile(file3.getName());
+
+
+                        try {
+                            JSONObject check = new JSONObject(budget_st);
+                            budget = check.getDouble("budget");
+
+                            System.out.println("The budget from the file is " + budget);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    } else {
+
+                        //for testing purposes
+                        budget = 0;
+                    }
+                    if (holder > budget) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                        alertDialog.setTitle("Warning");
+                        alertDialog.setMessage("You are about to exceed your budget!");
+
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Update Budget Or Wait until the end of the month",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                        alertDialog.show();
+
+                    } else {
+                        //create JSON file
+                        create_JSON(the_amount, the_choice);
+
+                        //refresh to start a new fragment
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+
+                    }
                 }
 
 
@@ -284,10 +375,10 @@ public class Input_Fragment_left extends Fragment {
                 System.out.println("Budget file was delete" + deleted2);
 
                 //temporary delete file for testing purposes
-                File dir = getActivity().getFilesDir();
-                File file = new File(dir,"input.json");
-                boolean deleted = file.delete();
-                System.out.println("was the file deleted: "+ deleted);
+//                File dir = getActivity().getFilesDir();
+//                File file = new File(dir,"input.json");
+//                boolean deleted = file.delete();
+//                System.out.println("was the file deleted: "+ deleted);
 
 
             }
@@ -401,7 +492,7 @@ public class Input_Fragment_left extends Fragment {
         }
 
 
-        Toast.makeText(getActivity(),jsonStr, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),jsonStr, Toast.LENGTH_LONG).show();
 
         //return to this activity
         System.out.println("jsonString: "+jsonStr);
@@ -422,6 +513,19 @@ public class Input_Fragment_left extends Fragment {
         }
 
 
+    }
+
+    public boolean zero_check(String d){
+
+        boolean checking = true;
+
+        if(d.isEmpty()){
+            checking = false;
+        }else if (Double.parseDouble(d) == 0){
+            checking = false;
+        }
+
+        return checking;
     }
 
 }

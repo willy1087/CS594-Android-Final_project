@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Le Finance App</string>
+    <string name="app_description">By Panchito and the Droids</string>
+    <string name="app_main_image">Chancho</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -32,6 +34,8 @@
     <string name="endDate">End Date</string>
     <string name="startDate_hint">05/04/2015</string>
     <string name="endDate_hint">05/10/2015</string>
+    <string name="date_hint">mm/dd/yyyy</string>
+
 
     <string name="daysTypes">Types/Date</string>
     <string name="day1">4th</string>
@@ -56,5 +60,14 @@
     <string name="balance_text_view">Balance: $230</string>
     <string name="salary">Salary : $</string>
     <string name="budget">Budget : $</string>
+
+    <string-array name="search_values">
+        <item>All</item>
+        <item>Education</item>
+        <item>Entertainment</item>
+        <item>Food</item>
+        <item>Transportation</item>
+        <item>Miscellaneous</item>
+    </string-array>
 
 </resources>

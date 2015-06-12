@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -131,12 +132,17 @@ public class MonthlyReport extends Activity {
 
                 // add the data to the chart
                 BarData data = new BarData(labels, dataset);
+
                 chart.setData(data);
                 // Add a description
                 chart.setDescription("Monthly Spending");
                 dataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
                 chart.animateY(3000, Easing.EasingOption.EaseOutBounce);
+
+                chart.invalidate();
+
+
 
             } catch (JSONException e) {
                 System.out.println("Failed to get JSON object");
@@ -218,8 +224,34 @@ public class MonthlyReport extends Activity {
         }else if (id == R.id.search_menu_button){
 
             //goes to search activity
+            Intent intent = new Intent(MonthlyReport.this,search_activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
 
             return true;
+        }else if (id== R.id.delete_everything){
+
+            //delete all the files and go back to main fragment
+            File dir = getFilesDir();
+            File file = new File(dir,"input.json");
+            boolean deleted = file.delete();
+            System.out.println("was the file deleted: "+ deleted);
+
+            File dir1 = getFilesDir();
+            File file1 = new File(dir1,"budget.json");
+            boolean deleted1 = file1.delete();
+            System.out.println("was the file deleted: "+ deleted1);
+
+            File dir2 = getFilesDir();
+            File file2 = new File(dir2,"result.json");
+            boolean deleted2 = file2.delete();
+            System.out.println("was the file deleted: "+ deleted2);
+
+
+            Intent intent = new Intent(MonthlyReport.this,MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+
         }
 
 

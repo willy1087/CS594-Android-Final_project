@@ -23,18 +23,18 @@
         <dex dex="/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/build/intermediates/pre-dexed/debug/classes-e04eaf693c7d423a343d687e5f1adf74c657f20d.jar" />
     </item>
     <item
-        jar="/Users/williamsalinas/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.1.0/ec46f9251e1e0ee60e1b6beae8b16f2e0fdee474/MPAndroidChart-v2.1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ec46f9251e1e0ee60e1b6beae8b16f2e0fdee474">
-        <dex dex="/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.1.0-df4a67f9a2fa52ec37046936717d95bc54d97d5a.jar" />
-    </item>
-    <item
         jar="/Users/williamsalinas/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.1/support-annotations-22.1.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
         <dex dex="/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.1-9cc58c406ac19f0e8c718694142c724ffbabf848.jar" />
+    </item>
+    <item
+        jar="/Users/williamsalinas/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.1.0/ec46f9251e1e0ee60e1b6beae8b16f2e0fdee474/MPAndroidChart-v2.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ec46f9251e1e0ee60e1b6beae8b16f2e0fdee474">
+        <dex dex="/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.1.0-df4a67f9a2fa52ec37046936717d95bc54d97d5a.jar" />
     </item>
 
 </items>

@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +30,7 @@ public class Input_Fragment_right extends Fragment {
     private Button clear, submit;
     private EditText salary_input, budget_input;
     public double the_salary, the_budget, the_balance, salary_json, budget_json, balance_json, spent;
+    private TextView balance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,73 +40,116 @@ public class Input_Fragment_right extends Fragment {
         budget_input  = (EditText)view.findViewById(R.id.budget);
         clear = (Button)view.findViewById(R.id.clear);
         submit = (Button)view.findViewById(R.id.submit);
+        balance = (TextView)view.findViewById(R.id.balance_view);
+
+        File dir = getActivity().getFilesDir();
+        File file = new File(dir,"budget.json");
+
+        if(file.exists()){
+            String JSON_String = ReadJSONFile();
+
+            try {
+                JSONObject jObj = new JSONObject(JSON_String);
+                budget_json = jObj.getDouble("budget");
+                salary_json = jObj.getDouble("salary");
+                balance_json = jObj.getDouble("balance");
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+            //check if budget is 0
+            if(budget_json == 0.0){
+                the_budget = the_salary / 12;
+            }
+
+            budget_input.setText(budget_json+"");
+            salary_input.setText(salary_json+"");
+
+            //calculate the current amount spent
+            spent = budget_json - balance_json;
+
+            //calculate the new balance
+            the_balance = budget_json - spent;
+
+            balance.setText("Balance: $" + the_balance);
+        }
+        else {
+            balance.setText("Balance: $" + 0);
+        }
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //get the value to double the salary
-                if(salary_input.getText().toString().isEmpty()){
-                    the_salary = 0;
-                }
-                else {
-                    the_salary = Double.parseDouble(salary_input.getText().toString());
-                }
 
-                //get the value to double the budget
-                if(budget_input.getText().toString().isEmpty()){
-                    the_budget = 0;
-                }
-                else {
-                    the_budget = Double.parseDouble(budget_input.getText().toString());
-                }
+                if(zero_check(salary_input.getText().toString())||zero_check(budget_input.getText().toString())){
+                    //get the value to double the salary
+                    if(salary_input.getText().toString().isEmpty()){
+                        the_salary = 0;
+                    }
+                    else {
+                        the_salary = Double.parseDouble(salary_input.getText().toString());
+                    }
 
-                //need to get all the amount values form json file and
-                //add them to see if the amount exceed the budget
-                File dir = getActivity().getFilesDir();
-                File file = new File(dir,"budget.json");
+                    //get the value to double the budget
+                    if(budget_input.getText().toString().isEmpty()){
+                        the_budget = 0;
+                    }
+                    else {
+                        the_budget = Double.parseDouble(budget_input.getText().toString());
+                    }
 
-                if(file.exists()){
-                    String JSON_String = ReadJSONFile();
+                    //check if budget is 0
+                    if(the_budget == 0.0){
+                        the_budget = the_salary / 12;
+                    }
 
-                    try {
-                        JSONObject jObj = new JSONObject(JSON_String);
-                        balance_json = jObj.getDouble("balance");
-                    }catch (JSONException e){
-                        e.printStackTrace();
+                    spent = 0.0;
+
+                    //need to get all the values form json file and check
+                    //to see if the new budget is not less than amount spent
+                    File dir = getActivity().getFilesDir();
+                    File file = new File(dir,"budget.json");
+
+                    //calculate the new balance
+                    the_balance = the_budget - spent;
+
+                    if(the_balance >= 0.0) {
+                        //create JSON file
+                        create_JSON(the_salary, the_budget, the_balance);
+
+                        //refresh to start a new fragment
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+                    }
+                    else{
+                        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                        alertDialog.setTitle("Warning");
+                        alertDialog.setMessage("Your new budget doesn't cover your current expenses!");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Update Budget",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
                     }
                 }
-
-                //calculate the amount spent
-                spent = the_budget - balance_json;
-
-                //calculate the new balance
-                the_balance = the_budget;
-
-                if(the_balance > 0.0) {
-                    //create JSON file
-                    create_JSON(the_salary, the_budget, the_balance);
-
-                    //refresh to start a new fragment
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
-                }
-                else{
+                else {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("Warning");
-                    alertDialog.setMessage("Your new budget doesn't cover your current expenses!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Update Budget",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
+                    alertDialog.setMessage("Invalid Input!");
+
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
                     alertDialog.show();
                 }
             }
@@ -116,10 +162,10 @@ public class Input_Fragment_right extends Fragment {
                 budget_input.setText("");
 
                 //temporary delete file for testing purposes
-                File dir = getActivity().getFilesDir();
-                File file = new File(dir, "budget.json");
-                boolean deleted = file.delete();
-                System.out.println("was the file deleted: " + deleted);
+//                File dir = getActivity().getFilesDir();
+//                File file = new File(dir, "budget.json");
+//                boolean deleted = file.delete();
+//                System.out.println("was the file deleted: " + deleted);
             }
         });
 
@@ -202,7 +248,7 @@ public class Input_Fragment_right extends Fragment {
             jsonStr = jObj.toString();
         }
 
-        Toast.makeText(getActivity(), jsonStr, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), jsonStr, Toast.LENGTH_LONG).show();
 
         //return to this activity
         System.out.println("jsonString: " + jsonStr);
@@ -222,5 +268,18 @@ public class Input_Fragment_right extends Fragment {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public boolean zero_check(String d){
+        boolean checking = true;
+
+        if(d.isEmpty()){
+            checking = false;
+        }
+        else if (Double.parseDouble(d) == 0){
+            checking = false;
+        }
+
+        return checking;
     }
 }

@@ -10,11 +10,12 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SplashScreen extends Activity {
 
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,17 @@ public class SplashScreen extends Activity {
         ImageView l=(ImageView) findViewById(R.id.imgLogo);
         l.clearAnimation();
         l.startAnimation(anim);
+
+        Animation anim1 = AnimationUtils.loadAnimation(this, R.anim.slideup);
+
+        TextView up = (TextView)findViewById(R.id.by_id);
+        up.startAnimation(anim1);
+
+        Animation anim2 = AnimationUtils.loadAnimation(this, R.anim.slidedown);
+
+        TextView down = (TextView)findViewById(R.id.app_name);
+        down.startAnimation(anim2);
+
 
     }
 

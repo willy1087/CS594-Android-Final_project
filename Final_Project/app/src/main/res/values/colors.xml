@@ -6,4 +6,6 @@
     <color name="clear_button">#C9302C</color>
     <color name="text_color">#000000</color>
     <color name="input_text_color">#37AECA</color>
+    <color name="header_text_color">#ffffff</color>
+    <color name="header_background">#505050</color>
 </resources>

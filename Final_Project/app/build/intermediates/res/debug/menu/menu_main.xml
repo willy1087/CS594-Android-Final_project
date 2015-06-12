@@ -28,5 +28,9 @@
         </menu>
     </item>
 
+    <item android:id="@+id/delete_everything"
+        android:title="Delete All files">
+    </item>
+
 </menu>
 <!-- From: file:/Users/williamsalinas/AndroidStudioProjects/Final_Project/app/src/main/res/menu/menu_main.xml -->

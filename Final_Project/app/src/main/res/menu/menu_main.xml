@@ -28,4 +28,8 @@
         </menu>
     </item>
 
+    <item android:id="@+id/delete_everything"
+        android:title="Delete All files">
+    </item>
+
 </menu>
